@@ -8,7 +8,7 @@ This Project is used as help for students to learn fullstack development.
 Made with the most simple tools.
 - Spring Boot
 - JPA/JDBC
-- MariaDB
+- H2
 - HTML/CSS/JavaScript
 - Docker
 
