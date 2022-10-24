@@ -1,0 +1,49 @@
+*, :root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 100%;
+    font-family: "system-ui", sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+#todo-list {
+    list-style: disc;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.todo-entry {
+    display: grid;
+
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "_checkbox title"
+        "_checkbox description";
+}
+
+.todo-entry > .title {
+    grid-area: title
+}
+
+.todo-entry > .description {
+    grid-area: description
+}
+
+.todo-entry > .checkbox {
+    grid-area: _checkbox
+}
