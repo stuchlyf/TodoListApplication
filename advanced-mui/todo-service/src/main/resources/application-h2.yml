@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    database: h2
+  datasource:
+    username: developer
+    password: development
+    driver-class-name: org.h2.Driver

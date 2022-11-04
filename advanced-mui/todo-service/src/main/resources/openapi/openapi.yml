@@ -1,0 +1,189 @@
+openapi: 3.0.3
+
+info:
+  title: 'Todo Service REST-API'
+  description: 'This is OpenAPI Schema for the Todo Service REST-API'
+  version: v1
+  license:
+    name: 'MIT'
+    url: 'https://opensource.org/licenses/MIT'
+
+paths:
+  /todo-service/todo-entry-service/todos:
+    get:
+      tags:
+        - 'todo-service'
+      description: 'Returns all of the existing Todos'
+      responses:
+        '200':
+          description: 'Successfully retrieved all existing Todos'
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoEntryTo'
+    post:
+      tags:
+        - 'todo-service'
+      description: 'Creates a new TodoEntry'
+      responses:
+        '201':
+          description: 'Successfully created a new Todo'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TodoEntryTo'
+        '400':
+          description: 'There was an Error while validating the given TodoEntry'
+  /todo-service/todo-entry-service/todos/{id}:
+    parameters:
+      - in: path
+        name: 'id'
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+    get:
+      tags:
+        - 'todo-service'
+      description: 'Returns a single Todo'
+      responses:
+        '200':
+          description: 'Successfully found the given ID'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TodoEntryTo'
+        '404':
+          description: "The given ID couldn't be found"
+    put:
+      tags:
+        - 'todo-service'
+      description: 'Updates a Todo'
+      responses:
+        '200':
+          description: 'Successfully updated the Todo with the given ID'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/TodoEntryTo'
+        '400':
+          description: 'There was an Error while validating the given TodoEntry'
+        '404':
+          description: "The given ID couldn't be found"
+    delete:
+      tags:
+        - 'todo-service'
+      description: 'Deletes a Todo'
+      responses:
+        '204':
+          description: 'The Todo with the given ID was deleted'
+        '404':
+          description: "The given ID couldn't be found"
+  /todo-service/bucket-service/buckets:
+    get:
+      tags:
+        - 'bucket-service'
+      description: 'Returns all of the existing Buckets'
+      responses:
+        '200':
+          description: 'Successfully retrieved all existing Buckets'
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BucketTo'
+    post:
+      tags:
+        - 'bucket-service'
+      description: 'Creates a new Bucket'
+      responses:
+        '201':
+          description: 'Successfully created a new Bucket'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BucketTo'
+        '400':
+          description: 'There was an Error while validating the given Bucket'
+  /todo-service/bucket-service/buckets/{id}:
+    parameters:
+      - in: path
+        name: 'id'
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+    get:
+      tags:
+        - 'bucket-service'
+      description: 'Returns a single Bucket'
+      responses:
+        '200':
+          description: 'Successfully found the given ID'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BucketTo'
+        '404':
+          description: "The given ID couldn't be found"
+    put:
+      tags:
+        - 'bucket-service'
+      description: 'Updates a Bucket'
+      responses:
+        '200':
+          description: 'Successfully updated the Todo with the given ID'
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/BucketTo'
+        '400':
+          description: 'There was an Error while validating the given BucketTo'
+        '404':
+          description: "The given ID couldn't be found"
+    delete:
+      tags:
+        - 'bucket-service'
+      description: 'Deletes a Bucket'
+      responses:
+        '204':
+          description: 'The Bucket with the given ID was deleted'
+        '404':
+          description: "The given ID couldn't be found"
+
+components:
+  schemas:
+    TodoEntryTo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+          maxLength: 255
+        completed:
+          type: boolean
+      required:
+        - title
+        - completed
+    BucketTo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        todoEntries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TodoEntryTo'
+      required:
+        - name
